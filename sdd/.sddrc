@@ -1,0 +1,12 @@
+{
+  "project": "calculadora-rtc-simples-nacional",
+  "version": "5.0.0",
+  "agents": ["claude"],
+  "telemetry": {
+    "enabled": false,
+    "anonymous": true,
+    "endpoint": "local"
+  },
+  "lang": "pt-BR",
+  "naming_convention": "sequencial"
+}
