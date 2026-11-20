@@ -1,90 +1,59 @@
-# Calculadora de Tributos - Simples Nacional
+<p align="center">
+  <img src="docs/img/banner.svg" alt="Calculadora de Tributos: calcule CBS e IBS no Simples Nacional" width="100%">
+</p>
 
-## Descrição do Projeto
+<p align="center">
+  <a href="https://github.com/nathanramorim/calculadora-rtc-simples-nacional/tags"><img alt="versão" src="https://img.shields.io/github/v/tag/nathanramorim/calculadora-rtc-simples-nacional?label=vers%C3%A3o&color=2563eb"></a>
+  <img alt="licença" src="https://img.shields.io/badge/licen%C3%A7a-MIT-16a34a">
+  <img alt="Java 25" src="https://img.shields.io/badge/Java-25-2563eb">
+  <img alt="Spring Boot 4" src="https://img.shields.io/badge/Spring%20Boot-4.1.2-16a34a">
+  <img alt="API REST" src="https://img.shields.io/badge/API-REST-2563eb">
+</p>
 
-API REST que realiza o cálculo da CBS e do IBS (Reforma Tributária do Consumo — LC 214/2025) nas operações do regime do simples nacional.
+<h3 align="center">Calcule CBS e IBS no Simples Nacional<br>com o resultado e o erro de cada item</h3>
 
 ---
 
-## Público-Alvo
+## O que é
 
-- Empresas de tecnologia
-- Desenvolvedores
-- Contribuintes em geral
+A Calculadora de Tributos do Simples Nacional é uma API que faz as contas de CBS e IBS da Reforma Tributária do Consumo (LC 214/2025) nas operações do regime do Simples Nacional. Você envia a operação com seus itens e recebe o resultado de cada um. Ela também consulta as atividades do Simples Nacional vigentes em uma data.
 
----
+É mantida pela Receita Federal do Brasil, com o SERPRO. Faz par com a [calculadora do regime regular](https://github.com/nathanramorim/calculadora-rtc-regime-regular), da qual usa os scripts do banco de dados.
 
-## Funcionalidades
+## Por que usar
 
-Todos os caminhos começam com `http://localhost:8082/api`. A lista completa, com esquemas e exemplos, está no Swagger (`http://localhost:8082/api/swagger-ui.html`).
-
-| Funcionalidade | Endpoint |
+| | |
 |---|---|
-| Cálculo do Simples Nacional com observabilidade (erros por item, sem interromper os demais) | `POST /calculadora/observabilidade/simples-nacional` |
-| Descrição de um código de erro `VSN-` | `GET /calculadora/observabilidade/simples-nacional/erros?codigo=VSN-001` |
-| Atividades do Simples Nacional vigentes em uma data, com filtros por anexo, tipo de documento e cClassTrib | `GET /calculadora/simples-nacional/atividades?data=AAAA-MM-DD` |
-| Consulta de uma atividade pelo código, vigente na data | `GET /calculadora/simples-nacional/atividades/{codigo}?data=AAAA-MM-DD` |
-| Informações de versão da aplicação, da base de dados e do ambiente | `GET /versao` |
-| Status da versão no perfil offline, comparado à instalação online | `GET /versao/status` (somente perfil `offline`) |
+| **Cálculo pronto** | CBS e IBS do Simples Nacional em uma chamada. |
+| **Erro por item** | Um item com problema não impede o cálculo dos outros. Cada erro tem um código `VSN-` que você consulta na própria API. |
+| **Atividades vigentes** | Consulta as atividades do Simples Nacional em uma data, com filtros por anexo, tipo de documento e cClassTrib. |
+| **Mesma regra de arredondamento** | Usa a mesma classe de arredondamento do regime regular, para os números baterem entre as duas APIs. |
+| **Documentação interativa** | Swagger com todos os campos e exemplos. |
 
+## Antes de começar
 
----
+- **Java 25**. Confira com `java -version`.
+- **Git**, para baixar o projeto.
+- **Internet** na primeira execução: o Maven Wrapper (`mvnw`) baixa o Maven sozinho, sem instalação.
+- Windows, macOS ou Linux.
 
-## Requisitos
-
-### Requisitos do Sistema
-
-- **Java**: versão 25
-- **Maven**: não precisa ser instalado; o Maven Wrapper (`mvnw` / `mvnw.cmd`) baixa a versão necessária na primeira execução (requer internet)
-- **Git**: para clonar o repositório
-- **Sistema Operacional**: Windows, macOS ou Linux
-
-### Dependências Principais
-
-O projeto utiliza as seguintes tecnologias:
-
-- **Spring Boot 4.1.2**: Framework principal da aplicação web
-- **SQLite**: Banco de dados embarcado
-- **Flyway**: Migração e versionamento do banco de dados
-- **Springdoc OpenAPI 3.2.0**: Documentação interativa da API (especificação OpenAPI 3.1)
----
-
-## Instruções de Instalação
-
-### 1. Pré-requisitos
-
-Certifique-se de ter instalado o Java 25 ou superior e verifique as versões:
+## Instalação
 
 ```bash
-# Verificar versão do Java
-java -version
-```
-
-### 2. Clonar o Repositório
-
-```bash
-git clone https://github.com/ReceitaFederal/calculadora-rtc-simples-nacional.git
+git clone https://github.com/nathanramorim/calculadora-rtc-simples-nacional.git
 cd calculadora-rtc-simples-nacional
 ```
 
-### 3. Gerar o Banco de Dados (obrigatório)
+**Passo obrigatório: gerar o banco de dados.** Sem ele, a aplicação não inicia. Os scripts ficam no repositório da [calculadora do regime regular](https://github.com/nathanramorim/calculadora-rtc-regime-regular): copie a pasta `flyway/` de lá para a raiz deste projeto e rode:
 
-O perfil `offline` lê o banco `./calculadora/db/calculadora-pro.db`, definido por `application.db.filename` em `application-offline.yml`. O caminho é relativo à raiz do projeto e o banco é aberto em modo somente leitura.
-
-> **Atenção:** use os scripts SQL para gerar o arquivo do Banco de Dados localizados no repositório https://github.com/ReceitaFederal/calculadora-rtc-regime-regular
-
-> **Atenção:** a aplicação só funciona se o banco estiver gerado. Sem ele, o perfil offline não inicia.
-
-Copie para a raiz deste projeto a pasta flyway/ presente no repositório https://github.com/ReceitaFederal/calculadora-rtc-regime-regular
-
-**Linux/macOS:**
+Linux/macOS:
 
 ```bash
 mkdir -p ./calculadora/db
 ./mvnw flyway:migrate -Dflyway.configFiles=./flyway/flyway-pro.conf --batch-mode --errors
 ```
 
-**Windows:**
+Windows:
 
 ```bat
 mkdir calculadora\db
@@ -93,61 +62,64 @@ mvnw.cmd flyway:migrate -Dflyway.configFiles=flyway\flyway-pro.conf --batch-mode
 
 Confirme que o arquivo foi criado com `ls -lah ./calculadora/db/calculadora-pro.db` (Linux/macOS) ou `dir calculadora\db\calculadora-pro.db` (Windows).
 
-### 4. Compilar e Executar os Testes
+## Como usar
 
-Os testes exigem o banco gerado no passo 3, pois a maioria são testes de integração com o perfil `testes`.
-
-Executar todos os testes com relatório de cobertura (JaCoCo):
-
-**Linux/macOS:**
-
-```bash
-./mvnw clean test jacoco:report
-```
-
-**Windows:**
-
-```bat
-mvnw.cmd clean test jacoco:report
-```
-
-O relatório de cobertura fica em `target/site/jacoco/index.html`.
-
-### 5. Executar a Aplicação com perfil Offline (spring-boot:run)
-
-**Linux/macOS:**
+Inicie a aplicação:
 
 ```bash
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=offline
 ```
 
-**Windows:**
+No Windows: `mvnw.cmd spring-boot:run "-Dspring-boot.run.profiles=offline"`.
 
-```bat
-mvnw.cmd spring-boot:run "-Dspring-boot.run.profiles=offline"
+A API fica em `http://localhost:8082/api`, a documentação interativa em `http://localhost:8082/api/swagger-ui.html` e as métricas em `http://localhost:9103/metrics`.
+
+| Para | Chamada |
+|---|---|
+| Calcular o Simples Nacional (erros por item) | `POST /api/calculadora/observabilidade/simples-nacional` |
+| Entender um código de erro | `GET /api/calculadora/observabilidade/simples-nacional/erros?codigo=VSN-001` |
+| Listar atividades vigentes numa data | `GET /api/calculadora/simples-nacional/atividades?data=AAAA-MM-DD` |
+| Consultar uma atividade pelo código | `GET /api/calculadora/simples-nacional/atividades/{codigo}?data=AAAA-MM-DD` |
+| Ver a versão da aplicação e da base | `GET /api/versao` |
+| Comparar com a instalação online (só perfil `offline`) | `GET /api/versao/status` |
+
+Exemplos de envio estão em [docs/exemplos.md](docs/exemplos.md).
+
+Para rodar os testes e ver a cobertura (eles também precisam do banco gerado):
+
+```bash
+./mvnw clean test jacoco:report
 ```
 
-A API estará disponível em `http://localhost:8082/api`; as métricas ficam disponíveis em `http://localhost:9103/metrics`.
+O relatório fica em `target/site/jacoco/index.html`.
 
-### 6. Gerar o JAR e Executar com java -jar (perfil offline)
-
-**Linux/macOS:**
+Para gerar o JAR e executá-lo:
 
 ```bash
 ./mvnw clean package
 java -Dspring.profiles.active=offline -jar target/api-simples-nacional.jar
 ```
 
-**Windows:**
+No Windows: `mvnw.cmd clean package` e `java "-Dspring.profiles.active=offline" -jar target\api-simples-nacional.jar`. Execute o JAR a partir da raiz do projeto, para que `./calculadora/db` seja encontrado.
 
-```bat
-mvnw.cmd clean package
-java "-Dspring.profiles.active=offline" -jar target\api-simples-nacional.jar
-```
+## Segurança e privacidade
 
-Execute o JAR a partir da raiz do projeto, para que `./calculadora/db` seja encontrado.
+- A aplicação só lê o banco de dados. Ela nunca altera as tabelas oficiais.
+- A configuração de segurança libera todas as rotas e o CORS aceita só as origens configuradas. Não exponha a API na internet sem revisar isso.
+- Para relatar uma falha de segurança, veja [SECURITY.md](SECURITY.md).
 
----
+## Versões
+
+| Versão | Novidades |
+|---|---|
+| 1.0.2 | `ArredondamentoUtils` passa a ser a cópia única da política numérica, idêntica à do regime regular, com testes que impedem as duas de divergir. Os valores do Simples Nacional não mudaram. |
+| 0.0.6 | Documentação exigida para publicação no GitHub da Receita Federal. |
+
+O histórico completo está no [CHANGELOG](CHANGELOG.md).
+
+## Para quem quer contribuir
+
+Este repositório não aceita Pull Requests de fora. Sugestões e relatos de erro entram por Issues e Discussions. Veja o [guia de contribuição](CONTRIBUTING.md) e a [governança](GOVERNANCE.md).
 
 ## Referências
 
@@ -158,4 +130,4 @@ Execute o JAR a partir da raiz do projeto, para que `./calculadora/db` seja enco
 
 ## Licença
 
-Este projeto é distribuído sob a licença especificada no arquivo [LICENSE](LICENSE).
+[MIT](LICENSE)

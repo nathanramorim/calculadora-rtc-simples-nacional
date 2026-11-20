@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-label="Calculadora de Tributos: Calcule CBS e IBS no Simples Nacional">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e3a8a"/>
+      <stop offset="0.6" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e8f0ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="420" fill="url(#bg)"/>
+  <circle cx="1120" cy="-20" r="220" fill="#ffffff" opacity="0.07"/>
+  <circle cx="1220" cy="380" r="160" fill="#ffffff" opacity="0.08"/>
+  <circle cx="60" cy="420" r="140" fill="#ffffff" opacity="0.06"/>
+
+  <text x="80" y="150" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" fill="#bfdbfe" letter-spacing="3">SIMPLES NACIONAL</text>
+  <text x="80" y="228" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="42" font-weight="800" fill="#ffffff">Calculadora de Tributos</text>
+  <text x="80" y="285" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="30" fill="#e0ecff">Calcule CBS e IBS no Simples Nacional</text>
+  <text x="80" y="330" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="30" fill="#e0ecff">com o resultado e o erro de cada item</text>
+
+  <g font-family="Helvetica, Arial, sans-serif" text-anchor="middle">
+  <rect x="860" y="100" width="300" height="70" rx="12" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+  <text x="1010" y="130" font-size="22" font-weight="700" fill="#1e3a8a">Operação com itens</text>
+  <text x="1010" y="155" font-size="16" fill="#475569">Simples Nacional</text>
+  <path d="M1010 172 L1010 206" stroke="#ffffff" stroke-width="3" fill="none"/>
+  <path d="M1000 198 L1010 210 L1020 198 Z" fill="#ffffff"/>
+  <rect x="860" y="214" width="300" height="70" rx="12" fill="#1e3a8a"/>
+  <text x="1010" y="244" font-size="24" font-weight="700" fill="#ffffff">CBS · IBS</text>
+  <text x="1010" y="269" font-size="16" fill="#dbeafe">cada item calculado à parte</text>
+  <path d="M1010 286 L1010 320" stroke="#ffffff" stroke-width="3" fill="none"/>
+  <path d="M1000 312 L1010 324 L1020 312 Z" fill="#ffffff"/>
+  <rect x="860" y="328" width="300" height="40" rx="12" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+  <text x="1010" y="355" font-size="20" font-weight="700" fill="#16a34a">Totais e erros por item</text>
+</g>
+
+</svg>
